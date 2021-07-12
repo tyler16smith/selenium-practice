@@ -10,24 +10,32 @@ PATH = "C:/Program Files (x86)/Google/chromedriver.exe"
 driver = webdriver.Chrome(PATH)
 
 driver.get("https://techwithtim.net")
-print(driver.title)
 
-# search 'python'
-search = driver.find_element_by_name("s")
-search.send_keys("python")
-search.send_keys(Keys.RETURN)
+link = driver.find_element_by_link_text("Python Programming")
+link.click()
 
-# wait for the webpage to open
 try:
-    main = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.ID, "main"))
+    # waiting load until element search
+    element = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.LINK_TEXT, "Beginner Python Tutorials"))
     )
+    element.click()
 
-    articles = main.find_elements_by_tag_name("article")
+    element = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID, "sow-button-19310003"))
+    )
+    element.click()
 
-    for article in articles:
-        header = article.find_element_by_class_name("entry-summary")
-        print(header.text)
+    # go back
+    driver.back()
+    driver.back()
+    driver.back()
 
-finally:
+    # go forward
+    driver.forward()
+    driver.forward()
+
+except:
     driver.quit()
+
+time.sleep(5)
