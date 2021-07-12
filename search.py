@@ -1,34 +1,19 @@
-# Selenium web testing automation
-from selenium.webdriver.common.keys import Keys # access keys like "enter"
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
+# ActionChains - Automating a cookie clicker!
 from selenium import webdriver
-import time
+from selenium.webdriver.common.action_chains import ActionChains
 
 PATH = "C:/Program Files (x86)/Google/chromedriver.exe"
 driver = webdriver.Chrome(PATH)
+driver.get("https://orteil.dashnet.org/cookieclicker/")
 
-driver.get("https://techwithtim.net")
-print(driver.title)
+driver.implicitly_wait(2)
 
-# search 'python'
-search = driver.find_element_by_name("s")
-search.clear()
-search.send_keys("python")
-search.send_keys(Keys.RETURN)
+cookie = driver.find_element_by_id("bigCookie")
+cookie_count = driver.find_element_by_id("cookies")
 
-# wait for the webpage to open
-try:
-    main = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.ID, "main"))
-    )
+items = [driver.find_element_by_id("productPrice" + str(i)) for i in range(1, -1, -1)]
 
-    articles = main.find_elements_by_tag_name("article")
+actions = ActionChains(driver)
+actions.click()
 
-    for article in articles:
-        header = article.find_element_by_class_name("entry-summary")
-        print(header.text)
-
-finally:
-    driver.quit()
+for i in range()
