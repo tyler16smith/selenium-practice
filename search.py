@@ -14,6 +14,7 @@ print(driver.title)
 
 # search 'python'
 search = driver.find_element_by_name("s")
+search.clear()
 search.send_keys("python")
 search.send_keys(Keys.RETURN)
 
